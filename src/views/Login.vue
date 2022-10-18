@@ -1,11 +1,12 @@
 <template>
     <div class="login mt-5">
+        <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
         <form action="#">
             <b-field label="Usuario">
                 <b-input v-model="user"></b-input>
             </b-field>
             <b-field label="Contraseña">
-                <b-input v-model="password" type="password" password-reveal></b-input>
+                <b-input @keypress.native.enter="login()" v-model="password" type="password" password-reveal></b-input>
             </b-field>
             <b-button :disabled="disabledLoginButton" @click="login()" label="Iniciar Sesión" icon-left="sign-in-alt"
                 type="is-primary">
@@ -21,10 +22,12 @@ export default {
         return {
             user: "",
             password: "",
+            isLoading: false
         }
     },
     methods: {
         login() {
+            this.isLoading = true
             this.axios.post("/login", {
                 email: this.user,
                 password: this.password
