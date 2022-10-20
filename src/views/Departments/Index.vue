@@ -22,6 +22,7 @@
 import { mapState } from 'vuex';
 import * as messages from "@/common/Messages"
 import * as confirm from "@/common/Confirms"
+import { HANDLE_ERROR_RESPONSE } from '@/common/tools';
 export default {
     name: 'DepartmentsIndex',
     data() {
@@ -41,21 +42,8 @@ export default {
                 .then(response => {
                     this.departments = response.data
                 })
-                .catch(({ response }) => {
-                    if (response.status == 403) {
-                        messages.INVALID_TOKEN()
-                    }
-                    switch (response.status) {
-                        case 403:
-                            messages.INVALID_TOKEN();
-                            break;
-                        case 500:
-                            response.data.forEach(element => {
-                                messages.SERVER_ERROR({ message: element.message });
-                            });
-                            break;
-                    }
-                }).finally(() => {
+                .catch(HANDLE_ERROR_RESPONSE)
+                .finally(() => {
                     this.loading = false
                 })
         },
@@ -68,24 +56,7 @@ export default {
                     }).then(() => {
                         messages.SUCCESS();
                         this.getDepartments();
-                    }).catch(({ response }) => {
-                        if (response.status == 403) {
-                            messages.INVALID_TOKEN()
-                        }
-                        switch (response.status) {
-                            case 401:
-                                messages.NO_TOKEN();
-                                break;
-                            case 403:
-                                messages.INVALID_TOKEN();
-                                break;
-                            case 500:
-                                response.data.forEach(element => {
-                                    messages.SERVER_ERROR({ message: element.message });
-                                });
-                                break;
-                        }
-                    }).finally(() => {
+                    }).catch(HANDLE_ERROR_RESPONSE).finally(() => {
                         this.loading = false;
                     })
                 }

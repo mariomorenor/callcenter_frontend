@@ -16,6 +16,7 @@
 </template>
   
 <script>
+import { HANDLE_ERROR_RESPONSE } from '@/common/tools';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -39,6 +40,8 @@ export default {
                     this.setToken(response.headers.token)
                     sessionStorage.setItem("token", response.headers.token)
                     this.$router.replace({ name: "Home" })
+                }).catch(HANDLE_ERROR_RESPONSE).finally(() => {
+                    this.isLoading = false
                 })
         }
     },

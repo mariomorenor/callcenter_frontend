@@ -14,6 +14,20 @@ const SUCCESS = ({
   });
 };
 
+const ERROR = ({
+  message = "Operación Fallida!",
+  type = "is-danger",
+  duration = 2000,
+  position = "is-bottom",
+} = {}) => {
+  Toast.open({
+    message,
+    type,
+    duration,
+    position,
+  });
+};
+
 const SERVER_ERROR = ({
   message = "Ocurrió un problema en el Servidor",
   type = "is-danger",
@@ -44,18 +58,4 @@ const INVALID_TOKEN = ({
   });
 };
 
-const NO_TOKEN = ({
-  message = "No existe token de acceso",
-  type = "is-danger",
-  duration = 3000,
-  position = "is-bottom",
-} = {}) => {
-  Toast.open({
-    message,
-    type,
-    duration,
-    position,
-  });
-};
-
-export { SUCCESS, INVALID_TOKEN, SERVER_ERROR, NO_TOKEN };
+export { SUCCESS, INVALID_TOKEN, SERVER_ERROR, ERROR};
