@@ -13,7 +13,7 @@ Vue.use(Buefy, {
   defaultIconComponent: "fa-icon",
 });
 
-axios.defaults.baseURL = `${window.origin}/api`
+axios.defaults.baseURL = `${window.origin}`
 
 Vue.use(VueAxios, axios);
 

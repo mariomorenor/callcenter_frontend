@@ -1,9 +1,14 @@
 <template>
   <div class="home">
-    <b-navbar type="is-black">
+    <b-navbar type="is-black" fixed-top>
       <template #brand>
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+        <b-navbar-item tag="router-link" :to="{ name:'Home' }">
           PUCE-SD Call Center
+        </b-navbar-item>
+      </template>
+      <template #start>
+        <b-navbar-item tag="router-link" :to="{name:'DepartmentsIndex'}">
+          Departamentos
         </b-navbar-item>
       </template>
 
@@ -13,6 +18,9 @@
         </b-navbar-item>
       </template>
     </b-navbar>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -21,7 +29,7 @@ export default {
   name: 'HomeView',
   methods: {
     logout() {
-      localStorage.removeItem("session");
+      sessionStorage.removeItem("token")
       this.$router.replace({ name: "Login" })
     }
   }

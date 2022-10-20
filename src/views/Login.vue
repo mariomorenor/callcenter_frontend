@@ -16,6 +16,8 @@
 </template>
   
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
     name: 'LoginView',
     data() {
@@ -26,14 +28,16 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(["setToken"]),
         login() {
             this.isLoading = true
-            this.axios.post("/login", {
+            this.axios.post("login", {
                 email: this.user,
                 password: this.password
             })
-                .then(({ data }) => {
-                    localStorage.setItem("session", JSON.stringify(data))
+                .then((response) => {
+                    this.setToken(response.headers.token)
+                    sessionStorage.setItem("token", response.headers.token)
                     this.$router.replace({ name: "Home" })
                 })
         }
@@ -52,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 form {
     width: 30%;
     margin: auto;
