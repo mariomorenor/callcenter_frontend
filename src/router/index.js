@@ -31,6 +31,28 @@ const routes = [
           },
         ],
       },
+      {
+        path: "/estaciones",
+        component: () => import("@/views/Stations.vue"),
+        children: [
+          {
+            path: "",
+            name: "StationsIndex",
+            component: () => import("@/views/Stations/Index.vue"),
+          },
+          {
+            path: "nuevo",
+            name: "StationsCreate",
+            component: () => import("@/views/Stations/Create.vue"),
+          },
+          {
+            path: ":id/edit",
+            name: "StationsEdit",
+            props: true,
+            component: () => import("@/views/Stations/Edit.vue"),
+          },
+        ],
+      },
     ],
   },
   {

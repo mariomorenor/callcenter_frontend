@@ -10,6 +10,9 @@
         <b-navbar-item tag="router-link" :to="{name:'DepartmentsIndex'}">
           Departamentos
         </b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{name:'StationsIndex'}">
+          Estaciones
+        </b-navbar-item>
       </template>
 
       <template #end>
